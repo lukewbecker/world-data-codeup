@@ -69,6 +69,51 @@ def get_zillow_data():
         
     return zillow_df
 
+
+# Getting the world db:
+
+def get_world_data():
+
+    '''
+    This function will allow the user to retrieve all tables from the Zillow database from the Codeup DB source. 
+    It will acquire the data, import it as a dataframe, and then write that dataframe to a .csv file in the local directory.
+    '''
+
+    world_sql_query = '''SELECT * FROM city LEFT JOIN country ON `Code` = `Code`;'''
+    
+    
+    filename = 'world_practice_data.csv'
+    
+    if os.path.isfile(filename):
+        return pd.read_csv(filename)
+    else:
+        world_df = pd.read_sql(world_sql_query, get_db('world'))
+        world_df.to_csv(filename, index = False)
+        
+    return world_df
+
+
+
+def get_world_country():
+
+    '''
+    This function will allow the user to retrieve all tables from the Zillow database from the Codeup DB source. 
+    It will acquire the data, import it as a dataframe, and then write that dataframe to a .csv file in the local directory.
+    '''
+
+    world_sql_query = '''SELECT * FROM country;'''
+    
+    
+    filename = 'world_country_data.csv'
+    
+    if os.path.isfile(filename):
+        return pd.read_csv(filename)
+    else:
+        world_df = pd.read_sql(world_sql_query, get_db('world'))
+        world_df.to_csv(filename, index = False)
+        
+    return world_df
+
 # Finding the number of missing columns:
 
 def zillow_missing_values(df):
